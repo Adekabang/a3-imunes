@@ -1,4 +1,4 @@
 hcp tiger_rt_iptables tiger_rt:/
 echo "Done cp tiger_rt_iptables to tiger_rt"
-himage chmod+ +x tiger_rt 
+himage chmod +x tiger_rt 
 himage tiger_rt /tiger_rt_iptables
