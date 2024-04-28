@@ -42,3 +42,6 @@ script_body() {
     $IPTABLES -t nat -A PREROUTING -p tcp -m tcp   -d 15.16.17.2  --dport 25 -j DNAT --to-destination 192.168.1.10
 
 }
+
+reset_iptables_v4
+script_body
