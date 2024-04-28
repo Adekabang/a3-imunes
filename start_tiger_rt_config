@@ -1,6 +1,6 @@
 #! /bin/sh
 
-. ../common/start_functions.sh
+. ./common/start_functions.sh
 
 if test $# -eq 1; then
     eid=$1
