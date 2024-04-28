@@ -4,6 +4,7 @@ servers="icaro thor dedalus zeus"
 
 for server in servers
 do
+    echo $server
     himage $server useradd imunes --shell /bin/bash -password "1234"
     # himage $server echo 'imunes:passwd' | sudo chpasswd
 done
