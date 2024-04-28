@@ -6,7 +6,7 @@ if test $# -eq 1; then
     eid=$1
     isEidRunning $eid
 else
-    eid=`isNodeRunning aRootServer`
+    eid=`isNodeRunning tiger_rt`
     if [ $? -ne 0 ]; then
 	exit 1
     fi
