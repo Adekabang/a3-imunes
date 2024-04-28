@@ -1,0 +1,25 @@
+http_servers="icaro thor"
+
+for serv in $http_servers
+do
+    echo "Starting http server on $serv..."
+    h=${serv}@${eid}
+    himage $h killall -q -9 lighttpd
+    himage $h mkdir -p /usr/local/etc/lighttpd
+    himage $h mkdir -p /var/log/lighttpd
+    if isOSlinux; then
+        himage $h chown -R www-data:www-data /var/log/lighttpd
+    else
+        himage $h chown -R www:www /var/log/lighttpd
+    fi
+
+    hcp http_files/${serv}.lighttpd.conf $h:/usr/local/etc/lighttpd/lighttpd.conf
+    himage $h chmod 755 /usr/local/etc/lighttpd/lighttpd.conf
+    if isOSlinux; then
+        hcp http_files/${serv}.web $h:/root
+        himage -b $h lighttpd -f /usr/local/etc/lighttpd/lighttpd.conf
+    else
+        hcp -r http_files/${serv}.web $h:/root
+        himage $h lighttpd -f /usr/local/etc/lighttpd/lighttpd.conf
+    fi
+done
