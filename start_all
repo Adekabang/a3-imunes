@@ -1,2 +1,3 @@
-start_tiger_rt_config
-start_http
+#! /bin/sh
+./start_tiger_rt_config
+./start_http
