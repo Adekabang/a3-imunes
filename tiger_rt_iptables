@@ -1,3 +1,5 @@
+IPTABLES="iptables"
+
 reset_iptables_v4() {
   $IPTABLES -P OUTPUT  DROP
   $IPTABLES -P INPUT   DROP
@@ -33,14 +35,10 @@ script_body() {
     # 
     # Translate source address
     # for outgoing connections
-    $IPTABLES -t nat -A POSTROUTING -o eth0   -s 192.168.1.0/24  -j SNAT --to-source 15.16.17.2
+    $IPTABLES -t nat -A POSTROUTING -o eth0   -s 10.0.1.0/29  -j SNAT --to-source 200.222.1.2
+    $IPTABLES -t nat -A POSTROUTING -o eth1   -s 10.0.2.0/29  -j SNAT --to-source 200.222.1.2
+    $IPTABLES -t nat -A POSTROUTING -o eth2   -s 10.0.3.0/29  -j SNAT --to-source 200.222.1.2
     # 
-    # Rule 1 (NAT)
-    # 
-    echo "Rule 1 (NAT)"
-    # 
-    $IPTABLES -t nat -A PREROUTING -p tcp -m tcp   -d 15.16.17.2  --dport 25 -j DNAT --to-destination 192.168.1.10
-
 }
 
 reset_iptables_v4
