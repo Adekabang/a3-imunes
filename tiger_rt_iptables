@@ -1,0 +1,44 @@
+reset_iptables_v4() {
+  $IPTABLES -P OUTPUT  DROP
+  $IPTABLES -P INPUT   DROP
+  $IPTABLES -P FORWARD DROP
+
+cat /proc/net/ip_tables_names | while read table; do
+  $IPTABLES -t $table -L -n | while read c chain rest; do
+      if test "X$c" = "XChain" ; then
+        $IPTABLES -t $table -F $chain
+      fi
+  done
+  $IPTABLES -t $table -X
+done
+}
+
+
+script_body() {
+    # ================ IPv4
+
+
+    # ================ Table 'filter', automatic rules
+    # accept established sessions
+    $IPTABLES -A INPUT   -m state --state ESTABLISHED,RELATED -j ACCEPT 
+    $IPTABLES -A OUTPUT  -m state --state ESTABLISHED,RELATED -j ACCEPT 
+    $IPTABLES -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+
+    # ================ Table 'nat',  rule set NAT
+    # 
+    # Rule 0 (NAT)
+    # 
+    echo "Rule 0 (NAT)"
+    # 
+    # Translate source address
+    # for outgoing connections
+    $IPTABLES -t nat -A POSTROUTING -o eth0   -s 192.168.1.0/24  -j SNAT --to-source 15.16.17.2
+    # 
+    # Rule 1 (NAT)
+    # 
+    echo "Rule 1 (NAT)"
+    # 
+    $IPTABLES -t nat -A PREROUTING -p tcp -m tcp   -d 15.16.17.2  --dport 25 -j DNAT --to-destination 192.168.1.10
+
+}
