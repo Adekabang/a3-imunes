@@ -1,3 +1,4 @@
+#! /bin/sh
 IPTABLES="iptables"
 
 reset_iptables_v4() {
