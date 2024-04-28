@@ -1,3 +1,4 @@
 #! /bin/sh
+./start_preconfig
 ./start_tiger_rt_config
 ./start_http
