@@ -3,7 +3,7 @@ http_servers="icaro thor"
 for serv in $http_servers
 do
     echo "Starting http server on $serv..."
-    h=${serv}@${eid}
+    h=${serv}
     himage $h killall -q -9 lighttpd
     himage $h mkdir -p /usr/local/etc/lighttpd
     himage $h mkdir -p /var/log/lighttpd
