@@ -40,7 +40,12 @@ script_body() {
     $IPTABLES -t nat -A POSTROUTING -o eth3   -s 10.0.2.0/29  -j SNAT --to-source 200.222.1.2
     $IPTABLES -t nat -A POSTROUTING -o eth3   -s 10.0.3.0/29  -j SNAT --to-source 200.222.1.2
     # 
+
+    echo "Rule 1 (Port Forward)"
+
+    sysctl -w net.ipv4.ip_forward=1
+    sysctl -p
 }
 
-# reset_iptables_v4
+reset_iptables_v4
 script_body
