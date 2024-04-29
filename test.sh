@@ -12,7 +12,6 @@
 # himage tiger01 nmap -Pn -p21 200.222.1.11 #dedalus
 # himage tiger01 nmap -Pn -p80 10.0.2.3 #icaro
 # himage tiger01 nmap -Pn -p22 10.0.2.2 #zeus
-(echo ^]; echo quit) | timeout --signal=9 5 himage tiger01 telnet $1 $2 > /dev/null 2>&1 
 
 check_port() {
     (echo ^]; echo quit) | timeout --signal=9 5 himage tiger01 telnet $1 $2 > /dev/null 2>&1    
