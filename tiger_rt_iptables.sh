@@ -49,7 +49,23 @@ script_body() {
 
     sysctl -w net.ipv4.ip_forward=1
     sysctl -p
+
+    echo "Rule 2 (global)"
+    # 
+    # This permits access from internal net
+    # to the Internet and DMZ
+    $IPTABLES -A INPUT  -s 10.0.1.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A OUTPUT  -s 10.0.1.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A FORWARD  -s 10.0.1.0/29   -m state --state NEW  -j ACCEPT
+
+    $IPTABLES -A INPUT  -s 10.0.2.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A OUTPUT  -s 10.0.2.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A FORWARD  -s 10.0.2.0/29   -m state --state NEW  -j ACCEPT
+
+    $IPTABLES -A INPUT  -s 10.0.3.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A OUTPUT  -s 10.0.3.0/29   -m state --state NEW  -j ACCEPT
+    $IPTABLES -A FORWARD  -s 10.0.3.0/29   -m state --state NEW  -j ACCEPT
 }
 
-reset_iptables_v4
+# reset_iptables_v4
 script_body
