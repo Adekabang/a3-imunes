@@ -48,6 +48,9 @@ script_body() {
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  -s 221.13.1.1 -m state --state NEW  -j ACCEPT
     # $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 ! -s 221.13.1.1 -m state --state NEW  -j REJECT
     $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 -s 221.13.1.1 -m state --state NEW  -j ACCEPT
+    
+    echo "Rule 3 (ICMP)"
+    $IPTABLES -A INPUT -p icmp -j ACCEPT
 }
 
 reset_iptables_v4
