@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Acess Testing"
+echo "Access Testing"
 echo "========================================="
 echo "FROM TIGER01"
 
