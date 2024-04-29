@@ -80,3 +80,7 @@ echo ""
 echo "check zeus ssh (22) from attacker: should CLOSED"
 himage attacker nc -zvn 10.0.2.2 22 #zeus
 echo ""
+
+echo "check zeus ssh (22) from tiger03 via PUBLIC IP: should CLOSED"
+himage attacker nc -zvn 200.222.1.2 22 #zeus via Port Forwarding
+echo ""
