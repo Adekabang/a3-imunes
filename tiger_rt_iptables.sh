@@ -67,11 +67,12 @@ script_body() {
     $IPTABLES -A FORWARD  -s 10.0.3.0/29   -m state --state NEW  -j ACCEPT
 
     echo "Rule 3 (Port Forwarding TIGER03 to Zeus SSH)"
-    $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 -m conntrack -s 221.13.1.1 --ctstate NEW -j ACCEPT
-    $IPTABLES -A FORWARD -o eth1 -s 221.13.1.1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-    $IPTABLES -A FORWARD -i eth1 -o eth3 -d 221.13.1.1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-    $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp -s 221.13.1.1 --dport 22 -j DNAT --to-destination 10.0.2.2
-    $IPTABLES -t nat -A POSTROUTING -o eth1 -p tcp -s 221.13.1.1 --dport 22 -d 10.0.2.2 -j SNAT --to-source 10.0.2.1
+    # $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+    $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 ! -s 2.2.2.2 -j DROP
+    $IPTABLES -A FORWARD -i eth3 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+    $IPTABLES -A FORWARD -i eth1 -o eth3 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+    $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp --dport 22 -s 2.2.2.2 -j DNAT --to-destination 10.0.2.2
+    $IPTABLES -t nat -A POSTROUTING -o eth1 -p tcp --dport 22 -d 10.0.2.2 -j SNAT --to-source 10.0.2.1
 
 
 
