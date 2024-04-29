@@ -68,10 +68,10 @@ script_body() {
 
     echo "Rule 3 (Port Forwarding TIGER03 to Zeus SSH)"
     # $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 -m conntrack --ctstate NEW -j ACCEPT
-    $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 ! -s 2.2.2.2 -j DROP
+    $IPTABLES -A FORWARD -i eth3 -o eth1 -p tcp --syn --dport 22 ! -s 221.13.1.1 -j DROP
     $IPTABLES -A FORWARD -i eth3 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
     $IPTABLES -A FORWARD -i eth1 -o eth3 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-    $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp --dport 22 -s 2.2.2.2 -j DNAT --to-destination 10.0.2.2
+    $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp --dport 22 -s 221.13.1.1 -j DNAT --to-destination 10.0.2.2
     $IPTABLES -t nat -A POSTROUTING -o eth1 -p tcp --dport 22 -d 10.0.2.2 -j SNAT --to-source 10.0.2.1
 
 
