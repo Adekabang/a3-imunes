@@ -54,8 +54,12 @@ echo "check icaro http (80) from tiger03: should CLOSED"
 himage tiger03 nc -zvn 10.0.2.3 80 #icaro
 echo ""
 
-echo "check zeus ssh (22) from tiger03: should OPEN"
+echo "check zeus ssh (22) from tiger03: should CLOSED"
 himage tiger03 nc -zvn 10.0.2.2 22 #zeus
+echo ""
+
+echo "check zeus ssh (22) from tiger03 via PUBLIC IP: should OPEN"
+himage tiger03 nc -zvn 200.222.1.2 22 #zeus via Port Forwarding
 echo ""
 
 echo "========================================="
