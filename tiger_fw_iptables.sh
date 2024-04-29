@@ -24,8 +24,10 @@ script_body() {
 
     echo "Rule 0 (RIP)"
     # RIP between FW and ISP
+    $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
     $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
     $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
+    $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
 
     echo "Rule 1 (HTTP Thor)"
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.4   --dport 80  -m state --state NEW  -j ACCEPT
@@ -36,7 +38,7 @@ script_body() {
     $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.3   --dport 21  -m state --state NEW  -j ACCEPT
 
     echo "Rule 3 (SSH Zeus)"
-    # $IPTABLES -A INPUT  ! -s 221.13.1.1 -d 200.222.1.2 -p tcp --syn --dport 22 -m state --state NEW  -j REJECT
+    $IPTABLES -A INPUT  ! -s 221.13.1.1 -d 200.222.1.2 -p tcp --syn --dport 22 -m state --state NEW  -j REJECT
     # $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  ! -s 221.13.1.1 -m state --state NEW  -j REJECT
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  -s 221.13.1.1 -m state --state NEW  -j ACCEPT
     # $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 ! -s 221.13.1.1 -m state --state NEW  -j REJECT
