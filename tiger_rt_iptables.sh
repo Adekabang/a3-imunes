@@ -68,6 +68,9 @@ script_body() {
 
     echo "Rule 3 (Port Forwarding TIGER03 to Zeus SSH)"
     $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp --dport 22 -j DNAT --to-destination 10.0.2.2
+    $IPTABLES -t nat -A POSTROUTING -o eth1 -p tcp --dport 22 -d 10.0.2.2 -j SNAT --to-source 10.0.2.1
+
+
 
 }
 
