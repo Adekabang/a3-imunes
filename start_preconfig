@@ -6,7 +6,5 @@ for server in $servers
 do
     echo $server
     himage $server useradd imunes -m --shell /bin/bash --password $(openssl passwd -1 1234)
-    himage $server mkdir /home/imunes
-    # himage $server echo 'imunes:passwd' | sudo chpasswd
 done
 
