@@ -24,10 +24,12 @@ script_body() {
 
     echo "Rule 0 (RIP)"
     # RIP between FW and ISP
-    $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
-    $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
-    $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
-    $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
+    $IPTABLES -A INPUT -p udp -m udp  --dport 520  -m state --state NEW  -j ACCEPT
+    $IPTABLES -A OUTPUT -p udp -m udp  --dport 520  -m state --state NEW  -j ACCEPT
+    # $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
+    # $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.1   -d 1.1.1.2   --dport 520  -m state --state NEW  -j ACCEPT
+    # $IPTABLES -A INPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
+    # $IPTABLES -A OUTPUT -p udp -m udp  -s 1.1.1.2   -d 1.1.1.1   --dport 520  -m state --state NEW  -j ACCEPT
 
     echo "Rule 1 (HTTP Thor)"
     $IPTABLES -A INPUT -p tcp -m tcp  -d 200.222.1.4   --dport 80  -m state --state NEW  -j ACCEPT
