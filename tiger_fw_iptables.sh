@@ -43,10 +43,10 @@ script_body() {
 
     echo "Rule 3 (SSH Zeus)"
     $IPTABLES -A INPUT  ! -s 221.13.1.1 -d 200.222.1.2 -p tcp --syn --dport 22 -m state --state NEW  -j REJECT
-    # $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  ! -s 221.13.1.1 -m state --state NEW  -j REJECT
+    $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  ! -s 221.13.1.1 -m state --state NEW  -j REJECT
     $IPTABLES -A INPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  -s 221.13.1.1 -m state --state NEW  -j ACCEPT
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  -s 221.13.1.1 -m state --state NEW  -j ACCEPT
-    # $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 ! -s 221.13.1.1 -m state --state NEW  -j REJECT
+    $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 ! -s 221.13.1.1 -m state --state NEW  -j REJECT
     $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22 -s 221.13.1.1 -m state --state NEW  -j ACCEPT
     
     echo "Rule 3 (ICMP)"
