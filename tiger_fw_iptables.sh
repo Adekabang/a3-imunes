@@ -51,6 +51,8 @@ script_body() {
     
     echo "Rule 3 (ICMP)"
     $IPTABLES -A INPUT -p icmp -j ACCEPT
+    $IPTABLES -A FORWARD -p icmp -j ACCEPT
+    $IPTABLES -A OUTPUT -p icmp -j ACCEPT
 }
 
 reset_iptables_v4
