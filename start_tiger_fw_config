@@ -1,0 +1,17 @@
+#! /bin/sh
+
+. ./common/start_functions.sh
+
+if test $# -eq 1; then
+    eid=$1
+    isEidRunning $eid
+else
+    eid=`isNodeRunning tiger_fw`
+    if [ $? -ne 0 ]; then
+	exit 1
+    fi
+fi
+
+hcp tiger_fw_iptables.sh tiger_fw:/
+echo "Done cp tiger_fw_iptables to tiger_fw"
+himage tiger_fw /tiger_fw_iptables.sh
