@@ -8,10 +8,17 @@
 # startCheck "$eid"
 
 #from internal
-himage tiger01 nc -zv 200.222.1.12 80 #thor
-himage tiger01 nc -zv 200.222.1.11 21 #dedalus
-himage tiger01 nc -zv 10.0.2.3 80 #icaro
-himage tiger01 nc -zv 10.0.2.2 22 #zeus
+echo "check thor http (80) from tiger01"
+himage tiger01 nc -zvn 200.222.1.12 80 #thor
+
+echo "check dedalus ftp (21) from tiger01"
+himage tiger01 nc -zvn 200.222.1.11 21 #dedalus
+
+echo "check icaro http (80) from tiger01"
+himage tiger01 nc -zvn 10.0.2.3 80 #icaro
+
+echo "check zeus ssh (22) from tiger01"
+himage tiger01 nc -zvn 10.0.2.2 22 #zeus
 
 
 # err=0
