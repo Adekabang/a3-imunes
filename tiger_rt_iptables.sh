@@ -71,5 +71,5 @@ script_body() {
 
 }
 
-# reset_iptables_v4
+reset_iptables_v4
 script_body
