@@ -13,7 +13,6 @@
 # himage tiger01 nmap -Pn -p80 10.0.2.3 #icaro
 # himage tiger01 nmap -Pn -p22 10.0.2.2 #zeus
 
-check_port 22 10.0.22
 
 check_port() {
     (echo ^]; echo quit) | timeout --signal=9 5 himage tiger01 telnet $1 $2 > /dev/null 2>&1    
@@ -31,6 +30,7 @@ check_port() {
     fi
 }
 
+check_port 22 10.0.22
 # err=0
 # # ftp
 # himage @$eid netstat -an | grep LISTEN | grep -q "21"
