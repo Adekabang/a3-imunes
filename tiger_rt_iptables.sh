@@ -67,7 +67,7 @@ script_body() {
     $IPTABLES -A FORWARD  -s 10.0.3.0/29   -m state --state NEW  -j ACCEPT
 
     echo "Rule 3 (Port Forwarding TIGER03 to Zeus SSH)"
-    $IPTABLES -A FORWARD -p tcp -m tcp  -s 221.13.1.1   -d 10.0.2.2   --dport 22  -m state --state NEW  -j ACCEPT
+    $IPTABLES -t nat -A PREROUTING -i eth3 -p tcp --dport 22 -j DNAT --to-destination 10.0.2.2
 
 }
 
