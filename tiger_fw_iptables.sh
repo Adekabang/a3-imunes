@@ -35,15 +35,16 @@ script_body() {
     #
 
     echo "Rule 1 (HTTP Thor)"
-
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.4   --dport 80  -m state --state NEW  -j ACCEPT
     $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.4   --dport 80  -m state --state NEW  -j ACCEPT
 
-    echo "Rule 1 (FTP Dedalus)"
-    
+    echo "Rule 2 (FTP Dedalus)"
     $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.3   --dport 21  -m state --state NEW  -j ACCEPT
     $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.3   --dport 21  -m state --state NEW  -j ACCEPT
 
+    echo "Rule 3 (SSH Zeus)"
+    $IPTABLES -A OUTPUT -p tcp -m tcp  -d 200.222.1.2   --dport 22  -m state --state NEW  -j ACCEPT
+    $IPTABLES -A FORWARD -p tcp -m tcp  -d 200.222.1.2   --dport 22  -m state --state NEW  -j ACCEPT
 }
 
 reset_iptables_v4
