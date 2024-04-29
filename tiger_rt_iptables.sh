@@ -35,6 +35,10 @@ script_body() {
     echo "Rule 0 (NAT)"
     # 
     # Translate source address
+    $IPTABLES -t nat -A POSTROUTING -o eth3 -j MASQUERADE
+    $IPTABLES -A FORWARD -s 10.0.1.0/29 -o eth0 -j ACCEPT
+    $IPTABLES -A FORWARD -s 10.0.2.0/29 -o eth0 -j ACCEPT
+    $IPTABLES -A FORWARD -s 10.0.3.0/29 -o eth0 -j ACCEPT
     # for outgoing connections
     $IPTABLES -t nat -A POSTROUTING -o eth3   -s 10.0.1.0/29  -j SNAT --to-source 200.222.1.2
     $IPTABLES -t nat -A POSTROUTING -o eth3   -s 10.0.2.0/29  -j SNAT --to-source 200.222.1.2
